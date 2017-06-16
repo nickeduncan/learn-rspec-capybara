@@ -28,17 +28,24 @@ describe "User Sessions" do
 
   context "success" do
     before do
-      # sign in
+      fill_in 'Email', with: email
+      fill_in 'Password', with: password
+      click_button 'Sign in'
     end
 
     it "displays a welcome message" do
-      pending
+      expect(page).to have_content('Signed in successfully')
     end
 
     it "shows the correct navigation links" do
       # should not see 'Sign in' and 'Sign up'
       # should see 'Profile' or 'Sign out'
-      pending
+      within('.navbar') do
+        expect(page).to have_link('Profile')
+        expect(page).to have_link('Sign out')
+        expect(page).not_to have_link('Sign up')
+        expect(page).not_to have_link('Sign In')
+      end
     end
   end
 end
